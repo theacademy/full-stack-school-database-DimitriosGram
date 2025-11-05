@@ -71,7 +71,7 @@ public class StudentController {
     public void addStudentToCourse(@PathVariable int studentId, @PathVariable int courseId) {
         //YOUR CODE STARTS HERE
 
-        studentServiceImpl.addStudentToCourse(studentId, courseId)
+        studentServiceImpl.addStudentToCourse(studentId, courseId);
 
         //YOUR CODE ENDS HERE
     }
