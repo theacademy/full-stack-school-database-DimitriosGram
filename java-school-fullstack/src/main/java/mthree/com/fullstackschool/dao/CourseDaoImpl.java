@@ -56,8 +56,13 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public void deleteCourse(int id) {
-        String sql = "DELETE FROM course_student WHERE course_id = ?";
-        jdbcTemplate.update(sql, courseId);
+        // First, remove all student links from course_student
+        String sqlDeleteLinks = "DELETE FROM course_student WHERE course_id = ?";
+        jdbcTemplate.update(sqlDeleteLinks, id);
+
+        // Then, delete the course itself
+        String sqlDeleteCourse = "DELETE FROM course WHERE cid = ?";
+        jdbcTemplate.update(sqlDeleteCourse, id);
     }
 
     @Override
