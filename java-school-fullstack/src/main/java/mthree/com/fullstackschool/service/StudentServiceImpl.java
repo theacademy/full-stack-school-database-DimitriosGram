@@ -21,6 +21,11 @@ public class StudentServiceImpl implements StudentServiceInterface {
         this.courseDao = courseDao;
     }
 
+    public StudentServiceImpl(StudentDao studentDao) {
+        this.studentDao = studentDao;
+        this.courseDao = null;
+    }
+
     @Override
     public List<Student> getAllStudents() {
         return studentDao.getAllStudents();
