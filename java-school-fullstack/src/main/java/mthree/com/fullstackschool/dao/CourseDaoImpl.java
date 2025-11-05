@@ -67,14 +67,7 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public void deleteAllStudentsFromCourse(int courseId) {
-        String countSql = "SELECT COUNT(*) FROM course_student WHERE course_id = ?";
-        Integer before = jdbcTemplate.queryForObject(countSql, Integer.class, courseId);
-
-        String deleteSql = "DELETE FROM course_student WHERE course_id = ?";
-        jdbcTemplate.update(deleteSql, courseId);
-
-        Integer after = jdbcTemplate.queryForObject(countSql, Integer.class, courseId);
-
-        System.out.println("Before deletion: " + before + ", After deletion: " + after);
+        String sql = "DELETE FROM course_student WHERE course_id = ?";
+        jdbcTemplate.update(sql, courseId);
     }
 }
