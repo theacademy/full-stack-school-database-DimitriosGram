@@ -58,8 +58,8 @@ public class TeacherDaoImpl implements TeacherDao {
     @Override
     public void updateTeacher(Teacher t) {
         //YOUR CODE STARTS HERE
-        String sql = "UPDATE teacher SET tFName = ?, tLName = ?, dept = ? WHERE tid = ?";
-        jdbcTemplate.update(sql, t.getTeacherFName(), t.getTeacherLName(), t.getTeacherId());
+        String sql = "UPDATE teacher SET tFName = ?, tLName = ?, dept = COALESCE(?, dept) WHERE tid = ?";
+        jdbcTemplate.update(sql, t.getTeacherFName(), t.getTeacherLName(), t.getDept(), t.getTeacherId());
         //YOUR CODE ENDS HERE
     }
 
