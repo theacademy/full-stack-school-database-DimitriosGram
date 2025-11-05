@@ -52,7 +52,7 @@ public class CourseDaoImpl implements CourseDao {
         //YOUR CODE STARTS HERE
 
         String sql = "SELECT * FROM Course WHERE CourseId = ?";
-        return jdbcTemplate.queryForObject(sql, CourseMapper(, id));
+        return jdbcTemplate.queryForObject(sql, CourseMapper(id));
         //YOUR CODE ENDS HERE
     }
 
