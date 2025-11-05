@@ -10,8 +10,12 @@ public class StudentMapper implements RowMapper<Student> {
     public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
         //YOUR CODE STARTS HERE
 
+        Student student = new Student();
+        student.setStudentId(rs.getInt("StudentId"));
+        student.setFirstName(rs.getString("FirstName"));
+        student.setLastName(rs.getString("LastName"));
 
-        return null;
+        return student;
 
         //YOUR CODE ENDS HERE
     }
