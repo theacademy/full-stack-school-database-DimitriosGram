@@ -93,7 +93,7 @@ public class CourseDaoImplTests {
         assertEquals(4, studentCount);
 
         // Call the actual method being tested
-        dao.deleteAllStudentsFromCourse(7);
+        courseDao.deleteAllStudentsFromCourse(7); // changed from dao → courseDao
 
         // Check that the students are deleted
         studentCount = jdbcTemplate.queryForObject(sql, Integer.class);
