@@ -12,7 +12,6 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentServiceInterface {
 
-    //YOUR CODE STARTS HERE
     private final StudentDao studentDao;
     private final CourseDao courseDao;
 
@@ -21,69 +20,57 @@ public class StudentServiceImpl implements StudentServiceInterface {
         this.studentDao = studentDao;
         this.courseDao = courseDao;
     }
-    //YOUR CODE ENDS HERE
 
     @Override
     public List<Student> getAllStudents() {
-        //YOUR CODE STARTS HERE
         return studentDao.getAllStudents();
-        //YOUR CODE ENDS HERE
     }
 
     @Override
     public Student getStudentById(int id) {
-        //YOUR CODE STARTS HERE
         try {
             return studentDao.findStudentById(id);
         } catch (DataAccessException e) {
             Student s = new Student();
-            s.setFirstName("Student Not Found");
-            s.setLastName("Student Not Found");
+            s.setStudentFirstName("Student Not Found");
+            s.setStudentLastName("Student Not Found");
             return s;
         }
-        //YOUR CODE ENDS HERE
     }
 
     @Override
     public Student addNewStudent(Student student) {
-        //YOUR CODE STARTS HERE
-        if (student.getFirstName() == null || student.getFirstName().isBlank() ||
-                student.getLastName() == null || student.getLastName().isBlank()) {
-            student.setFirstName("First Name blank, student NOT added");
-            student.setLastName("Last Name blank, student NOT added");
+        if (student.getStudentFirstName() == null || student.getStudentFirstName().isBlank() ||
+                student.getStudentLastName() == null || student.getStudentLastName().isBlank()) {
+            student.setStudentFirstName("First Name blank, student NOT added");
+            student.setStudentLastName("Last Name blank, student NOT added");
             return student;
         }
         return studentDao.createNewStudent(student);
-        //YOUR CODE ENDS HERE
     }
 
     @Override
     public Student updateStudentData(int id, Student student) {
-        //YOUR CODE STARTS HERE
         if (id != student.getStudentId()) {
-            student.setFirstName("IDs do not match, student not updated");
-            student.setLastName("IDs do not match, student not updated");
+            student.setStudentFirstName("IDs do not match, student not updated");
+            student.setStudentLastName("IDs do not match, student not updated");
             return student;
         }
         studentDao.updateStudent(student);
         return student;
-        //YOUR CODE ENDS HERE
     }
 
     @Override
     public void deleteStudentById(int id) {
-        //YOUR CODE STARTS HERE
         studentDao.deleteStudent(id);
-        //YOUR CODE ENDS HERE
     }
 
     @Override
     public void deleteStudentFromCourse(int studentId, int courseId) {
-        //YOUR CODE STARTS HERE
         Student s = getStudentById(studentId);
         Course c = courseDao.findCourseById(courseId);
 
-        if (s.getFirstName().equals("Student Not Found")) {
+        if (s.getStudentFirstName().equals("Student Not Found")) {
             System.out.println("Student not found");
         } else if (c.getCourseName().equals("Course Not Found")) {
             System.out.println("Course not found");
@@ -91,16 +78,14 @@ public class StudentServiceImpl implements StudentServiceInterface {
             studentDao.deleteStudentFromCourse(studentId, courseId);
             System.out.println("Student: " + studentId + " deleted from course: " + courseId);
         }
-        //YOUR CODE ENDS HERE
     }
 
     @Override
     public void addStudentToCourse(int studentId, int courseId) {
-        //YOUR CODE STARTS HERE
         Student s = getStudentById(studentId);
         Course c = courseDao.findCourseById(courseId);
 
-        if (s.getFirstName().equals("Student Not Found")) {
+        if (s.getStudentFirstName().equals("Student Not Found")) {
             System.out.println("Student not found");
         } else if (c.getCourseName().equals("Course Not Found")) {
             System.out.println("Course not found");
@@ -112,6 +97,5 @@ public class StudentServiceImpl implements StudentServiceInterface {
                 System.out.println("Student: " + studentId + " already enrolled in course: " + courseId);
             }
         }
-        //YOUR CODE ENDS HERE
     }
 }
