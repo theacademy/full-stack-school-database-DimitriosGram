@@ -21,13 +21,14 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public Course createNewCourse(Course course) {
-        String sql = "INSERT INTO Course (CourseName, CourseDesc) VALUES (?, ?)";
+        String sql = "INSERT INTO course (coursename, coursedesc, teacherid) VALUES (?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, course.getCourseName());
             ps.setString(2, course.getCourseDesc());
+            ps.setInt(3, course.getTeacherId());
             return ps;
         }, keyHolder);
 
@@ -37,31 +38,31 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public List<Course> getAllCourses() {
-        String sql = "SELECT * FROM Course";
+        String sql = "SELECT * FROM course";
         return jdbcTemplate.query(sql, new CourseMapper());
     }
 
     @Override
     public Course findCourseById(int id) {
-        String sql = "SELECT * FROM Course WHERE CourseId = ?";
+        String sql = "SELECT * FROM course WHERE courseid = ?";
         return jdbcTemplate.queryForObject(sql, new CourseMapper(), id);
     }
 
     @Override
     public void updateCourse(Course course) {
-        String sql = "UPDATE Course SET CourseName = ?, CourseDesc = ? WHERE CourseId = ?";
+        String sql = "UPDATE course SET coursename = ?, coursedesc = ? WHERE courseid = ?";
         jdbcTemplate.update(sql, course.getCourseName(), course.getCourseDesc(), course.getCourseId());
     }
 
     @Override
     public void deleteCourse(int id) {
-        String sql = "DELETE FROM Course WHERE CourseId = ?";
+        String sql = "DELETE FROM course WHERE courseid = ?";
         jdbcTemplate.update(sql, id);
     }
 
     @Override
     public void deleteAllStudentsFromCourse(int courseId) {
-        String sql = "DELETE FROM StudentCourse WHERE CourseId = ?";
+        String sql = "DELETE FROM studentcourse WHERE courseid = ?";
         jdbcTemplate.update(sql, courseId);
     }
 }

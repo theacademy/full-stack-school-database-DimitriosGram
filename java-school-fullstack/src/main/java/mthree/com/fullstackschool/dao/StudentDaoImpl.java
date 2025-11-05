@@ -25,7 +25,7 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     @Transactional
     public Student createNewStudent(Student student) {
-        String sql = "INSERT INTO Student (FirstName, LastName) VALUES (?, ?)";
+        String sql = "INSERT INTO student (firstname, lastname) VALUES (?, ?)";
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
@@ -41,37 +41,37 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public List<Student> getAllStudents() {
-        String sql = "SELECT * FROM Student";
+        String sql = "SELECT * FROM student";
         return jdbcTemplate.query(sql, new StudentMapper());
     }
 
     @Override
     public Student findStudentById(int id) {
-        String sql = "SELECT * FROM Student WHERE StudentId = ?";
+        String sql = "SELECT * FROM student WHERE studentid = ?";
         return jdbcTemplate.queryForObject(sql, new StudentMapper(), id);
     }
 
     @Override
     public void updateStudent(Student student) {
-        String sql = "UPDATE Student SET FirstName = ?, LastName = ? WHERE StudentId = ?";
+        String sql = "UPDATE student SET firstname = ?, lastname = ? WHERE studentid = ?";
         jdbcTemplate.update(sql, student.getStudentFirstName(), student.getStudentLastName(), student.getStudentId());
     }
 
     @Override
     public void deleteStudent(int id) {
-        String sql = "DELETE FROM Student WHERE StudentId = ?";
+        String sql = "DELETE FROM student WHERE studentid = ?";
         jdbcTemplate.update(sql, id);
     }
 
     @Override
     public void addStudentToCourse(int studentId, int courseId) {
-        String sql = "INSERT INTO StudentCourse (StudentId, CourseId) VALUES (?, ?)";
+        String sql = "INSERT INTO studentcourse (studentid, courseid) VALUES (?, ?)";
         jdbcTemplate.update(sql, studentId, courseId);
     }
 
     @Override
     public void deleteStudentFromCourse(int studentId, int courseId) {
-        String sql = "DELETE FROM StudentCourse WHERE StudentId = ? AND CourseId = ?";
+        String sql = "DELETE FROM studentcourse WHERE studentid = ? AND courseid = ?";
         jdbcTemplate.update(sql, studentId, courseId);
     }
 }
