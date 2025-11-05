@@ -87,11 +87,18 @@ public class CourseDaoImplTests {
     @Test
     @DisplayName("Delete All Students From Course")
     public void deleteAllStudentsFromCourseTest() {
-        //Get number of students in course 7. (should be 4)
-        String sql = "Select count(student_id) from course_student where course_id = 7";
+        // Get number of students in course 7 (should be 4 before deletion)
+        String sql = "SELECT COUNT(student_id) FROM course_student WHERE course_id = 7";
         int studentCount = jdbcTemplate.queryForObject(sql, Integer.class);
         assertEquals(4, studentCount);
+
+        // Call the actual method being tested
+        dao.deleteAllStudentsFromCourse(7);
+
+        // Check that the students are deleted
         studentCount = jdbcTemplate.queryForObject(sql, Integer.class);
         assertEquals(0, studentCount);
     }
+
+}
 }
