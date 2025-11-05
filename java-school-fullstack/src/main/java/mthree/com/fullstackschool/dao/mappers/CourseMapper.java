@@ -11,10 +11,10 @@ public class CourseMapper implements RowMapper<Course> {
         //YOUR CODE STARTS HERE
 
         Course course = new Course();
-        course.setCourseId(rs.getInt("courseid"));
-        course.setCourseName(rs.getString("coursename"));
-        course.setCourseDesc(rs.getString("coursedesc"));
-        course.setTeacherId(rs.getInt("teacherid"));
+        course.setCourseId(rs.getInt("cid"));
+        course.setCourseName(rs.getString("courseCode"));
+        course.setCourseDesc(rs.getString("courseDesc"));
+        course.setTeacherId(rs.getInt("teacherId"));
         return course;
 
         //YOUR CODE ENDS HERE

@@ -21,7 +21,7 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public Course createNewCourse(Course course) {
-        String sql = "INSERT INTO course (coursename, coursedesc, teacherid) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO course (courseCode, courseDesc, teacherId) VALUES (?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
@@ -44,25 +44,25 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public Course findCourseById(int id) {
-        String sql = "SELECT * FROM course WHERE courseid = ?";
+        String sql = "SELECT * FROM course WHERE cid = ?";
         return jdbcTemplate.queryForObject(sql, new CourseMapper(), id);
     }
 
     @Override
     public void updateCourse(Course course) {
-        String sql = "UPDATE course SET coursename = ?, coursedesc = ? WHERE courseid = ?";
+        String sql = "UPDATE course SET courseCode = ?, courseDesc = ?, teacherId = ? WHERE cid = ?";
         jdbcTemplate.update(sql, course.getCourseName(), course.getCourseDesc(), course.getCourseId());
     }
 
     @Override
     public void deleteCourse(int id) {
-        String sql = "DELETE FROM course WHERE courseid = ?";
+        String sql = "DELETE FROM course WHERE cid = ?";
         jdbcTemplate.update(sql, id);
     }
 
     @Override
     public void deleteAllStudentsFromCourse(int courseId) {
-        String sql = "DELETE FROM studentcourse WHERE courseid = ?";
+        String sql = "DELETE FROM course_student WHERE course_id = ?";
         jdbcTemplate.update(sql, courseId);
     }
 }

@@ -25,7 +25,7 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     @Transactional
     public Student createNewStudent(Student student) {
-        String sql = "INSERT INTO student (firstname, lastname) VALUES (?, ?)";
+        String sql = "INSERT INTO student (fName, lName) VALUES (?, ?)";
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
@@ -47,31 +47,31 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Student findStudentById(int id) {
-        String sql = "SELECT * FROM student WHERE studentid = ?";
+        String sql = "SELECT * FROM student WHERE sid = ?";
         return jdbcTemplate.queryForObject(sql, new StudentMapper(), id);
     }
 
     @Override
     public void updateStudent(Student student) {
-        String sql = "UPDATE student SET firstname = ?, lastname = ? WHERE studentid = ?";
+        String sql = "UPDATE student SET fName = ?, lName = ? WHERE sid = ?";
         jdbcTemplate.update(sql, student.getStudentFirstName(), student.getStudentLastName(), student.getStudentId());
     }
 
     @Override
     public void deleteStudent(int id) {
-        String sql = "DELETE FROM student WHERE studentid = ?";
+        String sql = "DELETE FROM student WHERE sid = ?";
         jdbcTemplate.update(sql, id);
     }
 
     @Override
     public void addStudentToCourse(int studentId, int courseId) {
-        String sql = "INSERT INTO studentcourse (studentid, courseid) VALUES (?, ?)";
+        String sql = "INSERT INTO course_student (student_id, course_id) VALUES (?, ?)";
         jdbcTemplate.update(sql, studentId, courseId);
     }
 
     @Override
     public void deleteStudentFromCourse(int studentId, int courseId) {
-        String sql = "DELETE FROM studentcourse WHERE studentid = ? AND courseid = ?";
+        String sql = "DELETE FROM course_student WHERE student_id = ? AND course_id = ?";
         jdbcTemplate.update(sql, studentId, courseId);
     }
 }
